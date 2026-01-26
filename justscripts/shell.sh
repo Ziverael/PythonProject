@@ -43,3 +43,38 @@ get_lowercase_file_extension(){
   LOWERCASE_EXTENSION="${LOWERCASE_FILENAME##*.}"
   [ "${LOWERCASE_FILENAME}" != "${LOWERCASE_EXTENSION}" ] && echo "${LOWERCASE_EXTENSION}"
 }
+
+
+is_valid_filename(){
+  name=${1}
+  [ -n "${name}" ] || return 1
+  [ "${name}" != "." ] || return 1
+  [ "${name}" != ".." ] || return 1
+  case "${name}" in
+    */*) return 1;;
+  esac
+  case "${name}" in
+    *[!A-Za-z0-9._-]* ) return 1;;
+    esac
+}
+
+is_valid_python_package_name(){
+  name=${1}
+  [ -n "$name" ] || return 1
+  case "$name" in
+    [0-9]* ) return 1 ;;
+  esac
+  case "$name" in
+    *[!A-Za-z0-9_]* ) return 1 ;;
+  esac
+  case "$name" in
+    [A-Za-z_]* ) : ;;
+    * ) return 1 ;;
+  esac
+  case "$name" in
+    False|None|True|and|as|assert|async|await|break|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|raise|return|try|while|with|yield)
+      return 1
+      ;;
+  esac
+  return 0
+}

@@ -6,12 +6,13 @@ help:
     {{sh_init}}
     echo_title "General recipes:"
     echo_default "help                 Show this message."
-    echo_default "init                 Initialize the project."
+    echo_default "setup_repo_name      Set project name. Run at the beginning."
+    echo_default "init                 Initialize the project. Run after \`set_name\`."
     echo_default "up                   Start all services."
     echo_default "down                 Stop all services."
     echo_default "update_dotenv        Recreate the .env file from the .env.template file."
-    echo_default "build                Builds <package_name> image."
-    echo_default "format               Format <package_name> code with ruff. Example usage:"
+    echo_default "build                Builds <project_name> image."
+    echo_default "format               Format <project_name> code with ruff. Example usage:"
     echo_highlight "                         just format"
     echo_default "                       format specific file:"
     echo_highlight "                         just format <FilePathRelativeToProjectRoot>"
@@ -24,11 +25,16 @@ help:
     echo_highlight "                         just test ./tests"
     echo_highlight "                         just test ./tests/test_something.py"
     echo_highlight "                         just test ./tests/test_something.py::test_it"
-    echo_default "bash                 Start bash session inside the <package_name>-helper container."
-    echo_default "python               Start ipython session inside the <package_name>-helper container."
+    echo_default "bash                 Start bash session inside the <project_name>-helper container."
+    echo_default "python               Start ipython session inside the <project_name>-helper container."
     echo_title "Other recipes:"
     echo_default "meow                 Make Yourself the owner of the project folder and its contents."
     echo_default "coverage_report      Open coverage report with default browser."
+
+setup_repo_name:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    setup_repo_name
 
 init:
     #!/usr/bin/env sh
