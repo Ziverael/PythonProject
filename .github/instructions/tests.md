@@ -21,5 +21,5 @@ applyTo: "tests/**/*.py"
 # Parameters
 - For multiple cases prefer using parameters. As final parameter use `expected` with result to check
 
-# Assers
-- in assert RHS is epxected value
+# Asserts
+- in assert RHS is expected value
