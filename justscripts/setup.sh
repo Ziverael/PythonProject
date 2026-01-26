@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 . justscripts/shell.sh
-. justscripts/container.sh
-. justscripts/env.sh
 
 setup_repo_name(){
     if check_if_name_set;then
