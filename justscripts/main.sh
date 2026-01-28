@@ -1,17 +1,20 @@
 #!/usr/bin/env sh
 # shellcheck disable=SC2015
 # shellcheck disable=SC2120
-. justscripts/shell.sh
+. justscripts/env.sh
 . justscripts/setup.sh
+. justscripts/shell.sh
 
 init_project(){
     check_if_name_set "verbose"
     create_default_directories_and_files
     init_local_venv
+    create_or_update_dotenv
 }
 
 refresh_project(){
     sync_local_venv
+    create_or_update_dotenv
 }
 
 format_code () {

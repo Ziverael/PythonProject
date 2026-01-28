@@ -9,6 +9,7 @@ help:
     echo_default "setup_repo_name      Set project name. Run at the beginning."
     echo_default "init                 Initialize the project. Run after \`set_name\`."
     echo_default "refresh              Refresh the project with its pyproject.toml."
+    echo_default "update_dotenv        Recreate the .env file from the .env.template file."
     echo_default "format               Format <project_name> code with ruff. Example usage:"
     echo_highlight "                         just format"
     echo_default "                       format specific file:"
@@ -40,6 +41,11 @@ refresh:
     #!/usr/bin/env sh
     {{sh_init}}
     refresh_project
+
+update_dotenv:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    create_or_update_dotenv
 
 default_target := './'
 default_ignore := ''
@@ -84,10 +90,11 @@ set dotenv-load
 
 alias a     := all
 alias c     := check
+alias cr    := coverage_report
 alias f     := format
 alias fc    := format_and_check
 alias t     := test
-alias cr    := coverage_report
+alias ud    := update_dotenv
 
 
 
