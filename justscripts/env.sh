@@ -7,8 +7,8 @@ create_or_update_dotenv(){
     [ -f .env ] && SAVED_DOTENV_TEMPLATE_MD5="$(grep -m 1 -e "^DOTENV_TEMPLATE_MD5=" .env | cut -d '=' -f2)"
     if [ "${REAL_DOTENV_TEMPLATE_MD5}" = "${SAVED_DOTENV_TEMPLATE_MD5}" ]
     then
-        echo_title "Updating .env file"
-        echo_default "The .env ile is up to date. Skipping."
+        echo_title "Updating .env file..."
+        echo_default "The .env ile is up to date. Skipped."
     fi
 
     if [ ! -f .env ]
@@ -17,7 +17,7 @@ create_or_update_dotenv(){
         echo_default "Creating new .env file from .env.template file..."
         cp .env.template .env
     else
-        echo_title "Updatind .env file"
+        echo_title "Updating .env file..."
         rm -f .local/.env.backup && cp .env .local/.env.backup && rm -f .env && cp .env.template .env
     fi
     echo_default "Storing .env.template md5 sum..."
@@ -27,7 +27,7 @@ create_or_update_dotenv(){
 store_variable_in_dotenv_file () {
     VARIABLE_NAME="${1:?}"
     VARIABLE_VALUE="${2:?}"
-    echo_default "Storing ${VARIABLE_NAME} default value."
+    echo_default "Storing ${VARIABLE_NAME} default value..."
     sed_inplace "s|^${VARIABLE_NAME}=.*$|${VARIABLE_NAME}=${VARIABLE_VALUE}|g" .env
 }
 
@@ -38,7 +38,7 @@ restore_variable_in_dotenv_file () {
     VARIABLE_VALUE_IN_DOTENV_TEMPLATE="$(grep -m 1 -e "^${VARIABLE_NAME}=" .env.template | cut -d '=' -f2)"
     if [ -n "${VARIABLE_VALUE}" ] && [ "${VARIABLE_VALUE}" != "${VARIABLE_VALUE_IN_DOTENV_TEMPLATE}" ]
     then
-        echo_default "Restoring ${VARIABLE_NAME} value."
+        echo_default "Restoring ${VARIABLE_NAME} value..."
         sed_inplace "s|^${VARIABLE_NAME}=.*$|${VARIABLE_NAME}=${VARIABLE_VALUE}|g" .env
     fi
 }
@@ -48,7 +48,7 @@ get_variable_from_dotenv_file () {
     if [ ! -f .env ]
     then
         TARGET_ENV_FILE=".env.template"
-    else 
+    else
         TARGET_ENV_FILE=".env"
     fi
     VARIABLE_VALUE="$(grep -m 1 -e "^${VARIABLE_NAME}=" "${TARGET_ENV_FILE}" | cut -d '=' -f2)"

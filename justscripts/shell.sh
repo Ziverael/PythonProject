@@ -55,6 +55,14 @@ create_file_if_it_does_not_exist(){
     [ ! -f "${FILENAME}" ] && touch "${FILENAME}" && echo "File ${FILENAME} created." || echo
 }
 
+open_in_browser(){
+  FILE="${1:?}"
+  if [ -f "${FILE}" ]
+  then
+    nohup xdg-open "${FILE}" > /dev/null 2>&1 &
+  fi
+}
+
 is_valid_filename(){
   name=${1}
   [ -n "${name}" ] || return 1
