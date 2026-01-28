@@ -8,10 +8,7 @@ help:
     echo_default "help                 Show this message."
     echo_default "setup_repo_name      Set project name. Run at the beginning."
     echo_default "init                 Initialize the project. Run after \`set_name\`."
-    echo_default "up                   Start all services."
-    echo_default "down                 Stop all services."
-    echo_default "update_dotenv        Recreate the .env file from the .env.template file."
-    echo_default "build                Builds <project_name> image."
+    echo_default "refresh              Refresh the project with its pyproject.toml."
     echo_default "format               Format <project_name> code with ruff. Example usage:"
     echo_highlight "                         just format"
     echo_default "                       format specific file:"
@@ -25,10 +22,8 @@ help:
     echo_highlight "                         just test ./tests"
     echo_highlight "                         just test ./tests/test_something.py"
     echo_highlight "                         just test ./tests/test_something.py::test_it"
-    echo_default "bash                 Start bash session inside the <project_name>-helper container."
-    echo_default "python               Start ipython session inside the <project_name>-helper container."
     echo_title "Other recipes:"
-    echo_default "meow                 Make Yourself the owner of the project folder and its contents."
+    echo_default "clean_pycached       Remove .py[cod] files with __pycached__ dirs."
     echo_default "coverage_report      Open coverage report with default browser."
 
 setup_repo_name:
@@ -40,6 +35,11 @@ init:
     #!/usr/bin/env sh
     {{sh_init}}
     init_project
+
+refresh:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    refresh_project
 
 default_target := './'
 default_ignore := ''
@@ -53,13 +53,43 @@ check:
     {{sh_init}}
     check_code
 
+default_test_path := './tests'
+default_opts        := ''
+test test_path=default_test_path opts=default_opts:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    test_code {{test_path}} {{opts}}
+
+format_and_check: format check
+all: format check test
+
+clean_pycached:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    clean_pycached
+
+coverage_report:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    open_coverage_report
+
+profile file:
+    #!/usr/bin/env sh
+    {{sh_init}}
+    profile_python_code {{file}}
 
 # Just global variables
 
 set dotenv-load
 
-alias f     := format
+alias a     := all
 alias c     := check
+alias f     := format
+alias fc    := format_and_check
+alias t     := test
+alias cr    := coverage_report
+
+
 
 TITLE       := '\033[94m\033[1m'
 HIGHLIGHT   := '\033[93m\033[1m'

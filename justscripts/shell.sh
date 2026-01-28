@@ -44,6 +44,16 @@ get_lowercase_file_extension(){
   [ "${LOWERCASE_FILENAME}" != "${LOWERCASE_EXTENSION}" ] && echo "${LOWERCASE_EXTENSION}"
 }
 
+create_directory_if_it_does_not_exist(){
+    DIRECTORY="${1:?}"
+    [ ! -d "${DIRECTORY}" ] && mkdir -p "${DIRECTORY}" && echo "Directory ${DIRECTORY} created." || echo
+}
+
+create_file_if_it_does_not_exist(){
+    FILENAME="${1:?}"
+    [ -d "${FILENAME}" ] && rm -rdf "${FILENAME}" && echo "Removing directory ${FILENAME}."
+    [ ! -f "${FILENAME}" ] && touch "${FILENAME}" && echo "File ${FILENAME} created." || echo
+}
 
 is_valid_filename(){
   name=${1}
