@@ -44,6 +44,24 @@ get_lowercase_file_extension(){
   [ "${LOWERCASE_FILENAME}" != "${LOWERCASE_EXTENSION}" ] && echo "${LOWERCASE_EXTENSION}"
 }
 
+create_directory_if_it_does_not_exist(){
+    DIRECTORY="${1:?}"
+    [ ! -d "${DIRECTORY}" ] && mkdir -p "${DIRECTORY}" && echo "Directory ${DIRECTORY} created." || echo
+}
+
+create_file_if_it_does_not_exist(){
+    FILENAME="${1:?}"
+    [ -d "${FILENAME}" ] && rm -rdf "${FILENAME}" && echo "Removing directory ${FILENAME}."
+    [ ! -f "${FILENAME}" ] && touch "${FILENAME}" && echo "File ${FILENAME} created." || echo
+}
+
+open_in_browser(){
+  FILE="${1:?}"
+  if [ -f "${FILE}" ]
+  then
+    nohup xdg-open "${FILE}" > /dev/null 2>&1 &
+  fi
+}
 
 is_valid_filename(){
   name=${1}

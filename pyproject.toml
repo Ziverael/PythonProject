@@ -7,8 +7,9 @@ readme = "README.md"
 dependencies = [
     "ipykernel==6.31.0", # Vs-code extension bug https://stackoverflow.com/questions/79788502/jupyter-notebook-extension-visual-studio-code-stuck-connecting-to-kernel in 7.1.0
     "pydantic==2.11.10",
-    "tqdm>=4.67.1",
-    "typer>=0.21.1",
+    "tqdm==4.67.1",
+    "typer==0.21.1",
+    "scalene==2.1.0",
 ]
 requires-python=">= 3.12, <3.13"
 
@@ -19,12 +20,12 @@ package = true
 [dependency-groups]
 dev = [
     "mypy==1.18.2",
+    "pdbpp==0.11.7",
     "pre-commit==4.3.0",
     "pytest==9.0.2",
     "pytest-mock==3.15.1",
-    "ruff==0.14.14",
-    "pdbpp==0.11.7",
     "pytest-cov==7.0.0",
+    "ruff==0.14.14",
 ]
 
 [project.scripts]
